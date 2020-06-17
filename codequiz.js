@@ -6,6 +6,10 @@ var startBttn = $(".start-button");
 var swapZone = $(".card-changer")
 var timerSlot = $(".timer-slot")
 
+// HighScore Slots
+var localScore = []
+var initialArr = []
+
 
 
 // Question Load Format
@@ -19,7 +23,7 @@ function loadQuestions(){
     var questionNumber = 0
      
      //Total Quiz Time
-    var timeLeft = 40
+    var timeLeft = 50
 
      //Timer
     var timeInterval = setInterval(function(){
@@ -30,16 +34,15 @@ function loadQuestions(){
             //Empties Card Content
             swapZone.empty();
             clearInterval(timeInterval)
-            var $gameOver = $("<h3>Game Over</h3>")
-            swapZone.append($gameOver);
+            end();
             
         }
     }, 1000)   
     
+    //Creates Random Order
     createRandomOrder();
 
-
-        //Created array to hold new buttons
+    //Created array to hold new buttons
     function createRandomOrder() {
         var buttonOrder = [$newButton1, $newButton2, $newButton3, $newButton4]
         var randomOrder = buttonOrder.sort(randomizer)
@@ -56,8 +59,6 @@ function loadQuestions(){
         swapZone.append($newBreak)
         //Create Correct or Incorrect Notification =-====================================================================================
     }
-
-
 
     //Subtracts 10 Seconds on Button Click
     subtractBttn= $(".wrong-button");
@@ -77,15 +78,8 @@ function loadQuestions(){
             fourthQuestion();
         }
         if(questionNumber === 4){
-            console.log(timeLeft) //DEBUG
-            var $gameOver = $("<h3>Game Over</h3>")
-            var $scoreHeading = $("<h3></h3>")
-            $scoreHeading.text("Your score is " + timeLeft)
-            clearInterval(timeInterval)
-            timerSlot.empty();
-            swapZone.empty();
-            swapZone.append($gameOver);
-            swapZone.append($scoreHeading);
+            end();
+        
         }
 
     })
@@ -105,15 +99,7 @@ function loadQuestions(){
             fourthQuestion();
         }
         if(questionNumber === 4){
-            console.log(timeLeft) //DEBUG
-            var $gameOver = $("<h3>Game Over</h3>")
-            var $scoreHeading = $("<h3></h3>")
-            $scoreHeading.text("Your score is " + timeLeft)
-            clearInterval(timeInterval)
-            timerSlot.empty();
-            swapZone.empty();
-            swapZone.append($gameOver);
-            swapZone.append($scoreHeading);
+            end();
         }
 
     })
@@ -156,6 +142,78 @@ function loadQuestions(){
         $newButton3.text("Cat")
         $newButton4.text("Correct Answer")
     }
+
+    //End Function
+    function end (){
+        var $gameOver = $("<h3>Game Over</h3>")
+            var $scoreHeading = $("<h3></h3>")
+            var $form = $("<form id = score-form></form>")
+            var $input = $('<input type = "text" placeholder = "Enter your Initials"  id = "user-initial">')
+            var $scoreList = $("<ul></ul>")
+
+            $scoreHeading.text("Your score is " + timeLeft)
+            clearInterval(timeInterval)
+            timerSlot.empty();
+            swapZone.empty();
+            swapZone.append($gameOver);
+            swapZone.append($scoreHeading);
+            swapZone.append($form);
+            $form.append($input)
+            $form.on("submit", function(event){
+                event.preventDefault();
+                var userInitialInput = document.querySelector("#user-initial")
+                var inputText = userInitialInput.value.trim();
+
+                if (inputText === ""){
+                    return;
+                }
+                
+                //stores score and initials
+                var storedScores = JSON.parse(localStorage.getItem("score"))
+                var storedInitials = JSON.parse(localStorage.getItem("initials"))
+                
+                if(storedScores !== null){
+                    localScore = storedScores
+                    console.log(localScore)
+                    localScore.push(timeLeft);
+                    console.log(localScore)
+       
+                }
+                if(storedInitials !== null){
+                    initialArr = storedInitials
+                    initialArr.push(inputText);
+
+                    
+                }
+                else{
+                    initialArr.push(inputText);
+                    localScore.push(timeLeft);
+                }
+                localStorage.setItem("score", JSON.stringify(localScore))
+                localStorage.setItem("initials", JSON.stringify(initialArr))
+                userInitialInput.value = ""
+                swapZone.empty();
+                swapZone.append($gameOver)
+                swapZone.append($scoreList)
+                $gameOver.text("High Scores")
+                // Create a score for every score
+                for (var i = 0; i < localScore.length; i++){
+                    var score = localScore[i]
+                    var initial = initialArr[i]
+                    var $scoreListItem = $("<li></li>")
+                    $scoreList.append($scoreListItem)
+                    $scoreListItem.text(initialArr[i] + ":              " + localScore[i] )
+
+                    
+        
+                }
+                
+
+
+                
+            })
+    }
+
 
      firstQuestion();
 
