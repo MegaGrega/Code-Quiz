@@ -5,6 +5,7 @@ var timerEl = $("#timer")
 var startBttn = $(".start-button");
 var swapZone = $(".card-changer")
 var timerSlot = $(".timer-slot")
+var isCorrect = $("#correct")
 
 // HighScore Slots
 var localScore = []
@@ -59,12 +60,12 @@ function loadQuestions(){
         swapZone.append($newBreak)
         //Create Correct or Incorrect Notification =-====================================================================================
     }
-
+    
     //Subtracts 10 Seconds on Button Click
     subtractBttn= $(".wrong-button");
     correctBttn= $(".right-button");
     subtractBttn.on("click", function() {
-        console.log("That is incorrect") //DEBUG
+        isCorrect.text("Incorrect")
         timeLeft -= 10;
         questionNumber++
         console.log(questionNumber)
@@ -86,7 +87,7 @@ function loadQuestions(){
 
     //Correct Answer - No time Penalty
     correctBttn.on("click", function() {
-        console.log("That is correct") //DEBUG
+        isCorrect.text("Correct!")
         questionNumber++
         console.log(questionNumber)
         if(questionNumber === 1){
@@ -150,6 +151,8 @@ function loadQuestions(){
             var $form = $("<form id = score-form></form>")
             var $input = $('<input type = "text" placeholder = "Enter your Initials"  id = "user-initial">')
             var $scoreList = $("<ul></ul>")
+
+            isCorrect.empty();
 
             $scoreHeading.text("Your score is " + timeLeft)
             clearInterval(timeInterval)
