@@ -106,41 +106,41 @@ function loadQuestions(){
 
     //First Question
     function firstQuestion(){
-        $newHead1.text("First Question")
-        $newButton1.text("Dog")
-        $newButton2.text("Elephant")
-        $newButton3.text("Giraffe")
-        $newButton4.text("Correct Answer")
+        $newHead1.text("Which is not a Coen Brother's Movie?")
+        $newButton1.text("No Country for Old Men")
+        $newButton2.text("Fargo")
+        $newButton3.text("The Big Lebowski")
+        $newButton4.text("The Matrix")
     }  
 
     //Second Question
     function secondQuestion(){
         createRandomOrder();
-        $newHead1.text("Second Question")
-        $newButton1.text("Dog")
-        $newButton2.text("Elephant")
-        $newButton3.text("Cat")
-        $newButton4.text("Correct Answer")
+        $newHead1.text("Who Shot First?")
+        $newButton1.text("Greedo")
+        $newButton2.text("Chewbacca")
+        $newButton3.text("Jabba the Hutt")
+        $newButton4.text("Han Solo")
     }
     
     //Third Question
     function thirdQuestion(){
         createRandomOrder();
-        $newHead1.text("Third Question")
-        $newButton1.text("Dog")
-        $newButton2.text("Elephant")
-        $newButton3.text("Cat")
-        $newButton4.text("Correct Answer")
+        $newHead1.text("___ is love ___ is life")
+        $newButton1.text("Nemo")
+        $newButton2.text("Buzz Lightyear")
+        $newButton3.text("Donkey")
+        $newButton4.text("Shrek")
     }
 
     //Fourth Question
     function fourthQuestion(){
         createRandomOrder();
-        $newHead1.text("Fourth Question")
-        $newButton1.text("Dog")
-        $newButton2.text("Elephant")
-        $newButton3.text("Cat")
-        $newButton4.text("Correct Answer")
+        $newHead1.text("How many Fast and the Furious movies are there?")
+        $newButton1.text("5")
+        $newButton2.text("49")
+        $newButton3.text("3")
+        $newButton4.text("9")
     }
 
     //End Function
